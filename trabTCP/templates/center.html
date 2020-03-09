@@ -1,0 +1,13 @@
+{% block content %}
+{% if return_data %}
+    <br>
+    <div id="content" align="left" style="width: 720px ; padding: 2px ; margin: 1px auto ; background-color: #F0F0F0">
+        <pre>{{ return_data }}</pre>
+    </div>
+{% else %}
+    <br>
+    <div id="content" align="center" style="width: 720px ; padding: 2px ; margin: 1px auto ; background-color: #F0F0F0">
+        Hello World
+    </div>
+{% endif %}
+{% endblock %}

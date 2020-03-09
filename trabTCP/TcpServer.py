@@ -1,43 +1,51 @@
 import socket
-import datetime
+from flask import Flask
+from flask import render_template
+import subprocess
+import telnetlib
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
+host = "127.0.0.1"
+port = 100
 
-TCP_IP = '127.0.0.1'
-TCP_PORT = 80
-BUFFER_SIZE = 1024
-
+user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
 headers = """\
-POST /auth HTTP/1.1\r
+GET /auth HTTP/1.1\r
+User-Agent : {user_agent}\r
 Content-Type: {content_type}\r
 Content-Length: {content_length}\r
 Host: {host}\r
 Connection: close\r
 \r\n"""
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((TCP_IP, TCP_PORT))
-s.listen(1)
+BUFFER_SIZE = 1024
+app = Flask(__name__)
 
-body = 'userName=Ganesh&password=pass'                                 
-body_bytes = body.encode('ascii')
-header_bytes = headers.format(
-    content_type="application/x-www-form-urlencoded",
-    content_length=len(body_bytes),
-    host=str(TCP_IP) + ":" + str(TCP_PORT)
-).encode('iso-8859-1')
+def top_menu():
+    pass
 
-payload = header_bytes + body_bytes
+def call_proc(cmd):
+    output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    return output
 
+@app.route('/')
+def index():
+    return headers + "\r" + render_template('center.html', return_data='Hello TCP')  
 
-conn, addr = s.accept()
+@app.errorhandler(403)
+def forbidden():
+    return render_template('center.html', return_data='Can\'t do that!' )
 
-print('Connection address:', addr)
-while 1:
-    data = conn.recv(BUFFER_SIZE)
-    if data == b'\r\n':
-        # conn.send(datetime.date.today() as bytes)
-        conn.sendall(payload)
-        conn.close()
-    if not data: break
-    conn.sendall(data)  # echo
-conn.close()
+@app.errorhandler(404)
+def page_not_found():
+    return render_template('center.html', return_data='Nothing found here!')
+
+@app.errorhandler(500)
+def internal_server():
+    return render_template('center.html', return_data='Something smells strange!')
+
+if __name__ == '__main__':
+    app.run(host,port)

@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 import subprocess
 import telnetlib
+
 try:
     import urllib.request as urllib2
 except ImportError:
@@ -21,19 +22,12 @@ Host: {host}\r
 Connection: close\r
 \r\n"""
 
-BUFFER_SIZE = 1024
 app = Flask(__name__)
-
-def top_menu():
-    pass
-
-def call_proc(cmd):
-    output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-    return output
 
 @app.route('/')
 def index():
-    return headers + "\r" + render_template('center.html', return_data='Hello TCP')  
+    # return headers + "\r" + render_template('center.html', return_data='Hello TCP')  
+    return "HELLO TCP"
 
 @app.errorhandler(403)
 def forbidden():
@@ -49,3 +43,4 @@ def internal_server():
 
 if __name__ == '__main__':
     app.run(host,port)
+    import TcpClient

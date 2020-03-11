@@ -43,4 +43,11 @@ def internal_server():
 
 if __name__ == '__main__':
     app.run(host,port)
-    import TcpClient
+    # def random_letter(letters):
+    #     return letters
+
+    # while True:
+    #     x = input('Press enter for a random letter...')
+    #     if x == 'done':
+    #         break
+    #     random_letter(x)

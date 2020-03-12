@@ -1,4 +1,5 @@
 import socket
+from http import HTTPStatus
 
 print("target host: ")
 target_host = input() 
@@ -13,14 +14,13 @@ try:
     request = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n" % target_host
     client.send(request.encode())  
     
-    # receive some data 
     response = client.recv(4096)
-    # print(response.status, response.reason)
     http_response = repr(response)
     http_response_len = len(http_response)
-
-    #display the response
+    http_response_len_kb = (http_response_len/1000)
+    print(HTTPStatus.OK.value)
     print("[RECV] - length: %d" % http_response_len)
-    print(http_response)
+    print("Content length in Kb: %f" % http_response_len_kb)
+
 except Exception as identifier:
     print("Host não encontrado!")

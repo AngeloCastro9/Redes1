@@ -10,7 +10,7 @@ except ImportError:
     import urllib2
 
 host = "127.0.0.1"
-port = 100
+port = 80
 
 user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
 headers = """\

@@ -13,7 +13,10 @@ try:
     client.connect((target_host,target_port))
     print("This's a valid server")
     print("Socket connected")
-    request = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n" % target_host
+    try:
+        request = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n" % target_host
+    except Exception:
+        print("Invalid Request!")
     client.send(request.encode())  
     
     r = requests.get("https://"+target_host)

@@ -31,6 +31,7 @@ try:
 
     print("HTTP Version: HTTP/1.1")
     print(r.status_code)
+    print(response[:8])
 
     if r.status_code == 200:
         print("200 OK")

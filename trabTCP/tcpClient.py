@@ -44,5 +44,5 @@ try:
     print("[RECV] - length: %d" % http_response_len)
     print("Content length in Kb: %f" % http_response_len_kb)
 
-except Exception as identifier:
+except ConnectionError as identifier:
     print("Host not found!")

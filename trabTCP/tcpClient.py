@@ -1,7 +1,4 @@
 import socket
-from http import HTTPStatus
-import requests
-import re
 
 print("target host: ")
 target_host = input()

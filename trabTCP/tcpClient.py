@@ -1,7 +1,7 @@
 import socket
+import sys
 
-print("target host: ")
-target_host = input()
+target_host = sys.argv[1]
 print() #only to break line
 target_port = 80  
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  

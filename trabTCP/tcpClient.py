@@ -7,7 +7,6 @@ target_port = 80
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 
 try:
-
     client.connect((target_host,target_port))
     print("This's a valid server")
     print("Socket connected")
@@ -24,13 +23,13 @@ try:
     http_response_len = len(http_response)
     http_response_len_kb = (http_response_len/1000)
 
-    print(response[:8])
-    print(response[9:12])
-    if response[9:12] == b'200':
+    print("HTTP version: " + response.decode()[5:8])
+    print("Code: " + response.decode()[9:12])
+    if response.decode()[9:12] == '200':
         print("200 OK")
-    if response[9:12] == b'301':
+    if response.decode()[9:12] == '301':
         print("301 Moved Permanently")
-    if response[9:12] == b'400':
+    if response.decode()[9:12] == '400':
         print("400 BAD REQUEST")
     if response[9:12] == b'404':
         print("404 Not Found")  
@@ -42,5 +41,5 @@ try:
     print("[RECV] - length: %d" % http_response_len)
     print("Content length in Kb: %f" % http_response_len_kb)
 
-except ConnectionError as identifier:
+except Exception as identifier:
     print("Host not found!")
